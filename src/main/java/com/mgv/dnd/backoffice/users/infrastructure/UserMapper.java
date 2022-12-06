@@ -1,16 +1,11 @@
 package com.mgv.dnd.backoffice.users.infrastructure;
 
-import com.mgv.dnd.backoffice.users.domain.User;
 import com.mgv.dnd.backoffice.users.infrastructure.dao.UserDao;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserMapper {
-    public UserDao user2Dao(User user){
-        return new UserDao(
-                user.Id().value(),
-                user.Name().value(),
-                user.Surname().value()
-        );
+public final class UserMapper {
+    public UserDao user2Dao(String id, String userName, String password, String email){
+        return new UserDao(id, userName, password, email);
     }
 }

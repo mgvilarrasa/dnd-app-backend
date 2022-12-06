@@ -26,12 +26,12 @@ public class UserPostController extends ApiController {
     @PostMapping(value = "/users")
     public ResponseEntity<String> createUser(@RequestBody CreateUserRequest request){
         String uuid = generator.generate();
-        Command command = new CreateUserCommand(uuid, request.getName(), request.getSurname());
+        Command command = new CreateUserCommand(uuid, request.getUserName(), request.getPassword(), request.getEmail());
         try{
             dispatch(command);
         } catch (Exception e){
             return new ResponseEntity<>("Error creating new user",HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>("User " + uuid + " created", HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

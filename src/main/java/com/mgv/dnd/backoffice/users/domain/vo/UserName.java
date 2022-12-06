@@ -1,4 +1,4 @@
-package com.mgv.dnd.backoffice.users.domain;
+package com.mgv.dnd.backoffice.users.domain.vo;
 
 import com.mgv.dnd.shared.domain.vo.StringValueObject;
 

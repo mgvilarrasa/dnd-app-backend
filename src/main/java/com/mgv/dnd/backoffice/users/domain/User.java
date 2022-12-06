@@ -1,18 +1,25 @@
 package com.mgv.dnd.backoffice.users.domain;
 
+import com.mgv.dnd.backoffice.users.domain.vo.UserEmail;
+import com.mgv.dnd.backoffice.users.domain.vo.UserId;
+import com.mgv.dnd.backoffice.users.domain.vo.UserName;
+import com.mgv.dnd.backoffice.users.domain.vo.UserPassword;
+
 public final class User {
     private final UserId id;
-    private final UserName name;
-    private final UserSurname surname;
+    private final UserName userName;
+    private final UserPassword password;
+    private final UserEmail email;
 
-    public User(UserId id, UserName name, UserSurname surname){
+    public User(UserId id, UserName userName, UserPassword password, UserEmail email){
         this.id = id;
-        this.name = name;
-        this.surname = surname;
+        this.userName = userName;
+        this.password = password;
+        this.email = email;
     }
 
-    public static User create(UserId id, UserName name, UserSurname surname){
-        User user = new User(id, name, surname);
+    public static User create(UserId id, UserName userName, UserPassword password, UserEmail email){
+        User user = new User(id, userName, password, email);
         return user;
     }
 
@@ -20,13 +27,15 @@ public final class User {
         return id;
     }
 
-    public UserName Name() {
-        return name;
+    public UserName UserName() {
+        return userName;
     }
 
-    public UserSurname Surname() {
-        return surname;
+    public UserPassword Password() {
+        return password;
     }
+
+    public UserEmail Email(){return email;}
 
     @Override
     public int hashCode() {
@@ -42,6 +51,6 @@ public final class User {
             return false;
         }
         User user = (User) obj;
-        return id.equals(user.id) && name.equals(user.name) && surname.equals(user.surname);
+        return id.equals(user.id) && userName.equals(user.userName) && password.equals(user.password) && email.equals(user.email);
     }
 }

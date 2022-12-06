@@ -3,25 +3,31 @@ package com.mgv.dnd.backoffice.users.application.create;
 import com.mgv.dnd.shared.domain.bus.Command;
 
 public class CreateUserCommand extends Command {
-    private String userId;
-    private String userName;
-    private String userSurname;
+    private final String userId;
+    private final String userName;
+    private final String userPassword;
+    private final String userEmail;
 
-    public CreateUserCommand(String userId, String userName, String userSurname) {
+    public CreateUserCommand(String userId, String userName, String userPassword, String userEmail) {
         this.userId = userId;
         this.userName = userName;
-        this.userSurname = userSurname;
+        this.userPassword = userPassword;
+        this.userEmail = userEmail;
     }
 
-    public String getUserId() {
+    public String id() {
         return userId;
     }
 
-    public String getUserName() {
+    public String userName() {
         return userName;
     }
 
-    public String getUserSurname() {
-        return userSurname;
+    public String password() {
+        return userPassword;
+    }
+
+    public String email() {
+        return userEmail;
     }
 }
