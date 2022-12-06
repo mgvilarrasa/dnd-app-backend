@@ -23,7 +23,6 @@ public class MySqlUserRepository implements UserRepository {
     public void save(User user) {
         UserDao dao = mapper.user2Dao(user);
         repositoryDao.save(dao);
-        LOG.info("User saved");
     }
 
     @Override

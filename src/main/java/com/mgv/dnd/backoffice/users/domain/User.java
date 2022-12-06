@@ -11,6 +11,11 @@ public final class User {
         this.surname = surname;
     }
 
+    public static User create(UserId id, UserName name, UserSurname surname){
+        User user = new User(id, name, surname);
+        return user;
+    }
+
     public UserId Id() {
         return id;
     }
