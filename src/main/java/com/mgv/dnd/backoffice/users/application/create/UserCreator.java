@@ -1,6 +1,7 @@
 package com.mgv.dnd.backoffice.users.application.create;
 
 import com.mgv.dnd.backoffice.users.domain.*;
+import com.mgv.dnd.backoffice.users.domain.exceptions.EmailAlreadyExists;
 import com.mgv.dnd.backoffice.users.domain.vo.UserEmail;
 import com.mgv.dnd.backoffice.users.domain.vo.UserId;
 import com.mgv.dnd.backoffice.users.domain.vo.UserName;
@@ -19,6 +20,9 @@ public class UserCreator {
     }
 
     public void createUser(UserId id, UserName userName, UserPassword password, UserEmail email){
+        if(repository.searchByEmail(email).isPresent()){
+            throw new EmailAlreadyExists(email);
+        }
         User user = User.create(id, userName, password, email);
         repository.save(user);
     }

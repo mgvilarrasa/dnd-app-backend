@@ -1,6 +1,7 @@
 package com.mgv.dnd.backoffice.users.infrastructure;
 
 import com.mgv.dnd.backoffice.users.domain.User;
+import com.mgv.dnd.backoffice.users.domain.vo.UserEmail;
 import com.mgv.dnd.backoffice.users.domain.vo.UserId;
 import com.mgv.dnd.backoffice.users.domain.UserRepository;
 import com.mgv.dnd.backoffice.users.infrastructure.dao.UserDao;
@@ -30,6 +31,12 @@ public final class MySqlUserRepository implements UserRepository {
     @Override
     public Optional<User> searchById(UserId id) {
         Optional<UserDao> userDao =  repositoryDao.findById(id.value());
+        return userDao.map(dao -> mapper.dao2User(dao));
+    }
+
+    @Override
+    public Optional<User> searchByEmail(UserEmail email) {
+        Optional<UserDao> userDao = repositoryDao.findByEmail(email.value());
         return userDao.map(dao -> mapper.dao2User(dao));
     }
 
