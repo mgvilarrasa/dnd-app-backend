@@ -1,11 +1,16 @@
 package com.mgv.dnd.backoffice.users.domain;
 
+import com.mgv.dnd.backoffice.users.domain.exceptions.WrongEmailFormat;
 import com.mgv.dnd.backoffice.users.domain.vo.UserEmail;
 import com.mgv.dnd.backoffice.users.domain.vo.UserId;
 import com.mgv.dnd.backoffice.users.domain.vo.UserName;
 import com.mgv.dnd.backoffice.users.domain.vo.UserPassword;
 
+import java.util.regex.Pattern;
+
 public final class User {
+    private final static String REGEX_PATTERN = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
+            + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
     private final UserId id;
     private final UserName userName;
     private final UserPassword password;
@@ -20,6 +25,7 @@ public final class User {
 
     public static User create(UserId id, UserName userName, UserPassword password, UserEmail email){
         User user = new User(id, userName, password, email);
+        validateEmail(email);
         return user;
     }
 
@@ -36,6 +42,13 @@ public final class User {
     }
 
     public UserEmail Email(){return email;}
+
+    private static void validateEmail(UserEmail email){
+        Pattern pattern = Pattern.compile(REGEX_PATTERN);
+        if(!pattern.matcher(email.value()).matches()){
+            throw new WrongEmailFormat(email);
+        }
+    }
 
     @Override
     public int hashCode() {

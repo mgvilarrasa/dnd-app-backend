@@ -73,6 +73,17 @@ public abstract class DndApplicationTests {
 				.andExpect(content().string(""));
 	}
 
+	protected void assertRequestWithBodyAndSomeResponse(
+			String method,
+			String endpoint,
+			String body,
+			Integer expectedStatusCode
+	) throws Exception {
+		mockMvc
+				.perform(request(HttpMethod.valueOf(method), endpoint).content(body).contentType(APPLICATION_JSON))
+				.andExpect(status().is(expectedStatusCode));
+	}
+
 	protected void assertRequest(
 			String method,
 			String endpoint,

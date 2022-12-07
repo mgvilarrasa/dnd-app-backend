@@ -13,4 +13,14 @@ public final class UsersPostControllerShould extends DndApplicationTests {
                 201
         );
     }
+
+    @Test
+    void create_non_valid_non_existing_user() throws Exception{
+        assertRequestWithBodyAndSomeResponse(
+                "POST",
+                "/users",
+                "{\"userName\": \"UserName1\",\"password\": \"123456\", \"email\": \"test.com\"}",
+                400
+        );
+    }
 }

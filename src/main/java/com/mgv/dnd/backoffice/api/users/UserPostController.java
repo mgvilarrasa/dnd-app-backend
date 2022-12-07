@@ -2,6 +2,7 @@ package com.mgv.dnd.backoffice.api.users;
 
 import com.mgv.dnd.backoffice.api.users.request.CreateUserRequest;
 import com.mgv.dnd.backoffice.users.application.create.CreateUserCommand;
+import com.mgv.dnd.shared.domain.DomainError;
 import com.mgv.dnd.shared.domain.bus.Command;
 import com.mgv.dnd.shared.domain.utils.UuidGenerator;
 import com.mgv.dnd.shared.infraestructure.spring.ApiController;
@@ -30,6 +31,9 @@ public class UserPostController extends ApiController {
         try{
             dispatch(command);
         } catch (Exception e){
+            if(e instanceof DomainError){
+                return new ResponseEntity<>(((DomainError) e).errorMessage(), HttpStatus.BAD_REQUEST);
+            }
             return new ResponseEntity<>("Error creating new user",HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
