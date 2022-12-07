@@ -8,8 +8,10 @@ import com.mgv.dnd.backoffice.users.infrastructure.dao.UserRepositoryDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @Service
 public final class MySqlUserRepository implements UserRepository {
@@ -26,7 +28,13 @@ public final class MySqlUserRepository implements UserRepository {
     }
 
     @Override
-    public Optional<User> search(UserId id) {
-        return Optional.empty();
+    public Optional<User> searchById(UserId id) {
+        Optional<UserDao> userDao =  repositoryDao.findById(id.value());
+        return userDao.map(dao -> mapper.dao2User(dao));
+    }
+
+    @Override
+    public List<User> findAll() {
+        return repositoryDao.findAll().stream().map(p -> mapper.dao2User(p)).collect(Collectors.toList());
     }
 }

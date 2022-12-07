@@ -1,14 +1,24 @@
 package com.mgv.dnd.backoffice.api.users.request;
 
 public class CreateUserRequest {
+    private String id;
     private String userName;
     private String password;
     private String email;
 
-    public CreateUserRequest(String userName, String password, String email) {
+    public CreateUserRequest(String id, String userName, String password, String email) {
+        this.id = id;
         this.userName = userName;
         this.password = password;
         this.email = email;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getUserName() {

@@ -2,39 +2,34 @@ package com.mgv.dnd.backoffice.api.users;
 
 import com.mgv.dnd.backoffice.api.users.request.CreateUserRequest;
 import com.mgv.dnd.backoffice.users.application.create.CreateUserCommand;
-import com.mgv.dnd.shared.domain.DomainError;
 import com.mgv.dnd.shared.domain.bus.Command;
-import com.mgv.dnd.shared.domain.utils.UuidGenerator;
+import com.mgv.dnd.shared.infraestructure.ResponseError;
 import com.mgv.dnd.shared.infraestructure.spring.ApiController;
 import com.mgv.dnd.shared.infraestructure.spring.SpringCommandBus;
 import com.mgv.dnd.shared.infraestructure.spring.SpringQueryBus;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.mgv.dnd.shared.infraestructure.utils.ErrorMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+
 @RestController
 public class UserPostController extends ApiController {
-    @Autowired
-    private UuidGenerator generator;
-
     public UserPostController(SpringQueryBus queryBus, SpringCommandBus commandBus) {
         super(queryBus, commandBus);
     }
 
     @PostMapping(value = "/users")
-    public ResponseEntity<String> createUser(@RequestBody CreateUserRequest request){
-        String uuid = generator.generate();
-        Command command = new CreateUserCommand(uuid, request.getUserName(), request.getPassword(), request.getEmail());
+    public ResponseEntity<HashMap<String, String>> createUser(@RequestBody CreateUserRequest request){
+        Command command = new CreateUserCommand(request.getId(), request.getUserName(), request.getPassword(), request.getEmail());
         try{
             dispatch(command);
         } catch (Exception e){
-            if(e instanceof DomainError){
-                return new ResponseEntity<>(((DomainError) e).errorMessage(), HttpStatus.BAD_REQUEST);
-            }
-            return new ResponseEntity<>("Error creating new user",HttpStatus.INTERNAL_SERVER_ERROR);
+            ResponseError error = ErrorMapper.mapDomainError(e);
+            return new ResponseEntity<>(error.errorBody(), HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
