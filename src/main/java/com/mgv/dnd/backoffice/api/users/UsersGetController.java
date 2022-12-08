@@ -9,6 +9,8 @@ import com.mgv.dnd.shared.infraestructure.spring.ApiController;
 import com.mgv.dnd.shared.infraestructure.utils.ErrorMapper;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,17 +23,17 @@ public class UsersGetController extends ApiController {
     }
 
     @GetMapping(value = "/users")
-    public List<HashMap<String, String>> searchAllUsers(){
+    public List<HashMap<String, Serializable>> searchAllUsers(){
         try{
             UsersResponse userList = ask(new SearchAllUsersQuery());
-            return userList.users().stream().map(response -> new HashMap<String, String>() {{
+            return userList.users().stream().map(response -> new HashMap<String, Serializable>() {{
                 put("id", response.id());
                 put("userName", response.userName());
                 put("email", response.email());
             }}).collect(Collectors.toList());
         } catch (Exception e){
             ResponseError error = ErrorMapper.mapDomainError(e);
-            List<HashMap<String, String>> errorList = new ArrayList<>();
+            List<HashMap<String, Serializable>> errorList = new ArrayList<>();
             errorList.add(error.errorBody());
             return errorList;
         }

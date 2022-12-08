@@ -10,6 +10,8 @@ import com.mgv.dnd.shared.infraestructure.utils.ErrorMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.Serializable;
 import java.util.HashMap;
 
 @RestController
@@ -20,10 +22,10 @@ public class UserGetController extends ApiController {
     }
 
     @GetMapping(value = "/users/{id}")
-    public ResponseEntity<HashMap<String, String>> findUser(@PathVariable String id){
+    public ResponseEntity findUser(@PathVariable String id){
         try{
             UserResponse userResponse = ask(new FindUserQuery(id));
-            HashMap<String, String> responseMap = new HashMap<>();
+            HashMap<String, Serializable> responseMap = new HashMap<>();
             responseMap.put("id", userResponse.id());
             responseMap.put("userName", userResponse.userName());
             responseMap.put("email", userResponse.email());

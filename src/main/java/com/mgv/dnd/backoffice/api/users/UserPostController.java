@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 @RestController
@@ -23,7 +24,7 @@ public class UserPostController extends ApiController {
     }
 
     @PostMapping(value = "/users")
-    public ResponseEntity<HashMap<String, String>> createUser(@RequestBody CreateUserRequest request){
+    public ResponseEntity<HashMap<String, Serializable>> createUser(@RequestBody CreateUserRequest request){
         Command command = new CreateUserCommand(request.getId(), request.getUserName(), request.getPassword(), request.getEmail());
         try{
             dispatch(command);
