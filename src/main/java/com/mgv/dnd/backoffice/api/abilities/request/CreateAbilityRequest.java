@@ -1,4 +1,4 @@
-package com.mgv.dnd.v3_5.api.abilities.request;
+package com.mgv.dnd.backoffice.api.abilities.request;
 
 public class CreateAbilityRequest {
     private String id;

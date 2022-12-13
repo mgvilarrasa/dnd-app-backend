@@ -1,5 +1,6 @@
-package com.mgv.dnd.v3_5.api.abilities;
+package com.mgv.dnd.backoffice.api.abilities;
 
+import com.mgv.dnd.backoffice.api.abilities.request.CreateAbilityRequest;
 import com.mgv.dnd.shared.domain.bus.Command;
 import com.mgv.dnd.shared.infraestructure.ResponseError;
 import com.mgv.dnd.shared.infraestructure.spring.ApiController;
@@ -7,7 +8,6 @@ import com.mgv.dnd.shared.infraestructure.spring.SpringCommandBus;
 import com.mgv.dnd.shared.infraestructure.spring.SpringQueryBus;
 import com.mgv.dnd.shared.infraestructure.utils.ErrorMapper;
 import com.mgv.dnd.v3_5.abilities.application.create.CreateAbilityCommand;
-import com.mgv.dnd.v3_5.api.abilities.request.CreateAbilityRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +22,7 @@ public class AbilityPostController extends ApiController {
     }
 
     @PostMapping(value = "/abilities")
-    public ResponseEntity createUser(@RequestBody CreateAbilityRequest request){
+    public ResponseEntity createAbility(@RequestBody CreateAbilityRequest request){
         Command command = new CreateAbilityCommand(request.getId(), request.getName(), request.getDescription());
         try{
             dispatch(command);
