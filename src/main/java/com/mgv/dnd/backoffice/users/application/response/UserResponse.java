@@ -3,8 +3,6 @@ package com.mgv.dnd.backoffice.users.application.response;
 import com.mgv.dnd.backoffice.users.domain.User;
 import com.mgv.dnd.shared.domain.bus.Response;
 
-import java.util.HashMap;
-
 public class UserResponse implements Response {
     private final String id;
     private final String userName;

@@ -1,13 +1,13 @@
-package com.mgv.dnd.backoffice.api.users;
+package com.mgv.dnd.v3_5.api.abilities;
 
-import com.mgv.dnd.backoffice.api.users.request.CreateUserRequest;
-import com.mgv.dnd.backoffice.users.application.create.CreateUserCommand;
 import com.mgv.dnd.shared.domain.bus.Command;
 import com.mgv.dnd.shared.infraestructure.ResponseError;
 import com.mgv.dnd.shared.infraestructure.spring.ApiController;
 import com.mgv.dnd.shared.infraestructure.spring.SpringCommandBus;
 import com.mgv.dnd.shared.infraestructure.spring.SpringQueryBus;
 import com.mgv.dnd.shared.infraestructure.utils.ErrorMapper;
+import com.mgv.dnd.v3_5.abilities.application.create.CreateAbilityCommand;
+import com.mgv.dnd.v3_5.api.abilities.request.CreateAbilityRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,14 +15,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class UserPostController extends ApiController {
-    public UserPostController(SpringQueryBus queryBus, SpringCommandBus commandBus) {
+public class AbilityPostController extends ApiController {
+
+    public AbilityPostController(SpringQueryBus queryBus, SpringCommandBus commandBus) {
         super(queryBus, commandBus);
     }
 
-    @PostMapping(value = "/users")
-    public ResponseEntity createUser(@RequestBody CreateUserRequest request){
-        Command command = new CreateUserCommand(request.getId(), request.getUserName(), request.getPassword(), request.getEmail());
+    @PostMapping(value = "/abilities")
+    public ResponseEntity createUser(@RequestBody CreateAbilityRequest request){
+        Command command = new CreateAbilityCommand(request.getId(), request.getName(), request.getDescription());
         try{
             dispatch(command);
         } catch (Exception e){
