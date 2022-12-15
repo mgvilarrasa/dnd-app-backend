@@ -24,7 +24,7 @@ public final class MySqlUserRepository implements UserRepository {
 
     @Override
     public void save(User user) {
-        UserDao dao = mapper.user2Dao(user.Id().value(), user.UserName().value(), user.Password().value(), user.Email().value());
+        UserDao dao = mapper.user2Dao(user.id().value(), user.userName().value(), user.password().value(), user.email().value());
         repositoryDao.save(dao);
     }
 

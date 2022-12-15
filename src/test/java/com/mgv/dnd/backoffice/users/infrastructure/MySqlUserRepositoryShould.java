@@ -28,14 +28,14 @@ public class MySqlUserRepositoryShould extends DndApplicationTests {
     void return_an_existing_user_by_id(){
         User user = UserMother.random();
         repository.save(user);
-        assertEquals(Optional.of(user), repository.searchById(user.Id()));
+        assertEquals(Optional.of(user), repository.searchById(user.id()));
     }
 
     @Test
     void return_an_existing_user_by_email(){
         User user = UserMother.random();
         repository.save(user);
-        assertEquals(Optional.of(user), repository.searchByEmail(user.Email()));
+        assertEquals(Optional.of(user), repository.searchByEmail(user.email()));
     }
 
     @Test

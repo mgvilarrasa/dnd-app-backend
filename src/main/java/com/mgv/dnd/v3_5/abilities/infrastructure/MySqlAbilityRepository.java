@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public final class MySqlAbilityRepository implements AbilityRepository {
@@ -36,6 +37,6 @@ public final class MySqlAbilityRepository implements AbilityRepository {
 
     @Override
     public List<Ability> findAll() {
-        return null;
+        return repositoryDao.findAll().stream().map(p -> mapper.dao2Ability(p)).collect(Collectors.toList());
     }
 }

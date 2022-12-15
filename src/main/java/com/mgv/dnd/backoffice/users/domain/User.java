@@ -29,19 +29,19 @@ public final class User {
         return user;
     }
 
-    public UserId Id() {
+    public UserId id() {
         return id;
     }
 
-    public UserName UserName() {
+    public UserName userName() {
         return userName;
     }
 
-    public UserPassword Password() {
+    public UserPassword password() {
         return password;
     }
 
-    public UserEmail Email(){return email;}
+    public UserEmail email(){return email;}
 
     private static void validateEmail(UserEmail email){
         Pattern pattern = Pattern.compile(REGEX_PATTERN);

@@ -14,8 +14,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.request;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -43,6 +42,15 @@ public abstract class DndApplicationTests {
 				.perform(get(endpoint))
 				.andExpect(status().is(expectedStatusCode))
 				.andExpect(response);
+	}
+
+	protected void assertResponse(
+			String endpoint,
+			Integer expectedStatusCode
+	) throws Exception {
+		mockMvc
+				.perform(get(endpoint))
+				.andExpect(status().is(expectedStatusCode));
 	}
 
 	protected void assertResponse(

@@ -15,7 +15,7 @@ public class UserResponse implements Response {
     }
 
     public static UserResponse fromAggregate(User user){
-        return new UserResponse(user.Id().value(), user.UserName().value(), user.Email().value());
+        return new UserResponse(user.id().value(), user.userName().value(), user.email().value());
     }
 
     public String id() {
