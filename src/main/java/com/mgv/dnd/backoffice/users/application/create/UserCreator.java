@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 
 @Service
 public class UserCreator {
-    Logger LOG = Logger.getLogger(String.valueOf(UserCreator.class));
+    private final static Logger LOG = Logger.getLogger(String.valueOf(UserCreator.class));
     private final UserRepository repository;
 
     public UserCreator(UserRepository repository){
